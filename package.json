@@ -1,0 +1,59 @@
+{
+  "name": "tax-tally",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "license": "AGPL-version-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "keywords": [
+    "Tax Calculator",
+    "React App",
+    "Responsive",
+    "Web Accessibility",
+    "Multi-language"
+  ],
+  "author": {
+    "name": "Sindhuja Govindarajan",
+    "url": "https://www.linkedin.com/in/sindhujagovindarajan/"
+  },
+  "contributors": [
+    "srin2258"
+  ],
+  "scripts": {
+    "start": "webpack server --open --config webpack.config.cjs",
+    "build:dev": "APP_ENV NODE_ENV=development webpack --config webpack.config.cjs",
+    "build:prod": "APP_ENV NODE_ENV=production webpack --config webpack.config.cjs"
+  },
+  "dependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "dotenv-webpack": "^8.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "typescript": "^5.7.3",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  }
+}
