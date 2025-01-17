@@ -24,6 +24,7 @@ const TaxCalculator = () => {
     setDisabledButton(true);
     try {
       const response = await fetchTaxBrackets(url);
+      // console.log({ response });
       setTaxData({
         taxBracketData: response.data.tax_brackets,
         error: false,
@@ -38,7 +39,6 @@ const TaxCalculator = () => {
     let salary = salaryRef.current?.value;
     const invalidCondition = Number(salary) < 0 || salary === "";
     console.log({ invalidCondition });
-    // setDisabledButton(invalidCondition);
     if (Number(salary) < 0 || salary === "") {
       setDisabledButton(true);
     } else {
@@ -53,8 +53,9 @@ const TaxCalculator = () => {
     fetchTaxes(`${API_ENDPOINT}tax-year/${year}`);
   };
 
-  const handleTaxCalculation = () => {
-    let salary = salaryRef.current.valueAsNumber;
+  const handleTaxCalculation = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    let salary = salaryRef.current?.valueAsNumber || 0;
     let year = assesmentYearRef.current
       ? assesmentYearRef.current.value
       : DEFAULT_ASSESMENT_YEAR;
@@ -77,6 +78,8 @@ const TaxCalculator = () => {
   useEffect(() => {
     if (taxData.error) {
       setDisabledButton(true);
+    } else {
+      console.log({ taxData });
     }
   }, [taxData]);
 
@@ -90,7 +93,7 @@ const TaxCalculator = () => {
         <form onSubmit={handleTaxCalculation}>
           <h1 className="heading">Tax Calculator</h1>
           <Error
-            show={taxData.error}
+            show={taxData?.error}
             errorMessage="We are down right now please comeback later"
           />
           <TaxInputForm
