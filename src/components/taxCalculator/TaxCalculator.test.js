@@ -54,7 +54,7 @@ describe("TaxCalculator", () => {
   test("should show error when error state is true", () => {
     mockState.error = true;
     const { getByText } = render(<TaxCalculator />);
-    const errorText = getByText("We are down right now please comeback later");
+    const errorText = getByText("Something went wrong. Please try later.");
     expect(errorText).toBeInTheDocument();
   });
 });

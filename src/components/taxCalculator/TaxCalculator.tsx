@@ -89,7 +89,7 @@ const TaxCalculator = () => {
           <h1 className="heading">TaxTally - MTR Calculator</h1>
           <Error
             show={taxData?.error}
-            errorMessage="We are down right now please comeback later"
+            errorMessage="Something went wrong. Please try later."
           />
           <TaxInputForm
             assesmentYearRef={
