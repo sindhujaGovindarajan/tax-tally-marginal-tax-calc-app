@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "license": "AGPL-version-3.0",
-  "private": false,
   "engines": {
     "node": ">= 14.0.0",
     "npm": ">= 6.0.0"
   },
-  "homepage": "",
+  "homepage": "https://github.com/sindhujaGovindarajan/tax-tally-marginal-tax-calc-app#readme",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/sindhujaGovindarajan/tax-tally-marginal-tax-calc-app.git"
   },
-  "bugs": "",
+  "bugs": {
+    "url": "https://github.com/sindhujaGovindarajan/tax-tally-marginal-tax-calc-app/issues"
+  },
   "keywords": [
     "Tax Calculator",
     "React App",
@@ -27,17 +27,13 @@
     "name": "Sindhuja Govindarajan",
     "url": "https://www.linkedin.com/in/sindhujagovindarajan/"
   },
-  "contributors": [
-    "srin2258"
-  ],
   "scripts": {
-    "start": "webpack server --open --config webpack.config.cjs",
-    "build:dev": "APP_ENV NODE_ENV=development webpack --config webpack.config.cjs",
-    "build:prod": "APP_ENV NODE_ENV=production webpack --config webpack.config.cjs"
+    "start": "webpack server --open",
+    "build": "webpack --config webpack.config.js --mode development",
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
-    "dotenv-webpack": "^8.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -45,11 +41,19 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
+    "dotenv-webpack": "^8.1.0",
+    "eslint-plugin-jest": "^28.11.0",
     "html-webpack-plugin": "^5.6.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "style-loader": "^4.0.0",
     "typescript": "^5.7.3",
     "webpack": "^5.97.1",

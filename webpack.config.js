@@ -5,32 +5,28 @@ const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 
 const isDevelopment = process.env.APP_ENV === "development";
-// console.log(`${isDevelopment} ${process.env.NODE_ENV}`);
 
 module.exports = {
   mode: isDevelopment ? "development" : "production",
   entry: "./src/index.tsx",
   devServer: {
-    hot: isDevelopment,
+    hot: true,
     port: 6780,
-    static: path.resolve(__dirname, "dist"),
   },
   target: "web",
   output: {
-    filename: "bundle.[fullhash].js",
+    filename: "bundle.[hash].js",
     path: path.resolve(__dirname, "dist"),
-    assetModuleFilename: "images/[name][ext]",
   },
   plugins: [
     new Dotenv(),
     new HtmlWebpackPlugin({
-      favicon: "./src/images/favicon.ico",
       template: "./src/index.html",
       title: "Tax Tally",
     }),
-    isDevelopment && new webpack.HotModuleReplacementPlugin(),
+    isDevelopment && new webpack.HotModuleReplacementPlugin(), //HMR should never be used in prod
     isDevelopment && new ReactRefreshWebpackPlugin(),
-  ].filter(Boolean),
+  ],
   resolve: {
     modules: [__dirname, "src", "node_modules"],
     extensions: [".js", ".jsx", ".tsx", ".ts"],
@@ -49,7 +45,7 @@ module.exports = {
           ],
           plugins: [
             isDevelopment && require.resolve("react-refresh/babel"),
-          ].filter(Boolean), // Remove falsy values
+          ].filter(Boolean),
         },
       },
       {
@@ -57,8 +53,8 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(png|jpe?g|gif|woff|woff2|eot|ttf|svg)$/,
-        use: ["asset/resource"],
+        test: /\.png|svg|jpg|gif$/,
+        use: ["file-loader"],
       },
     ],
   },
