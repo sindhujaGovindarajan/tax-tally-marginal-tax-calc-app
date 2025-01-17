@@ -3,7 +3,7 @@
     "target": "es2016",
     "lib": ["DOM", "ESNext"],
     "jsx": "react-jsx",
-    "noEmit": true ,
+    "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,

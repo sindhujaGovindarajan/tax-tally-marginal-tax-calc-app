@@ -15,14 +15,16 @@ module.exports = {
   },
   target: "web",
   output: {
-    filename: "bundle.[hash].js",
+    filename: "bundle.[fullhash].js",
     path: path.resolve(__dirname, "dist"),
+    assetModuleFilename: "images/[name][ext]",
   },
   plugins: [
     new Dotenv(),
     new HtmlWebpackPlugin({
+      favicon: "./src/images/favicon.ico",
       template: "./src/index.html",
-      title: "Tax Tally",
+      title: "TaxTally",
     }),
     isDevelopment && new webpack.HotModuleReplacementPlugin(), //HMR should never be used in prod
     isDevelopment && new ReactRefreshWebpackPlugin(),
@@ -34,15 +36,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.ts$|tsx/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
         options: {
-          presets: [
-            "@babel/preset-env",
-            ["@babel/preset-react", { runtime: "automatic" }],
-            "@babel/preset-typescript",
-          ],
           plugins: [
             isDevelopment && require.resolve("react-refresh/babel"),
           ].filter(Boolean),
@@ -54,7 +51,7 @@ module.exports = {
       },
       {
         test: /\.png|svg|jpg|gif$/,
-        use: ["file-loader"],
+        use: ["asset/resource"],
       },
     ],
   },
