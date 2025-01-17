@@ -1,3 +1,6 @@
+.heading {
+  color: var(--primary-color);
+}
 .tax-calculator {
   display: flex;
   flex-direction: column;
