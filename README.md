@@ -2,6 +2,8 @@
 
 A responsive and accessible React-based marginal tax calculator application supporting dynamic tax data retrieval, built with modern development practices.
 
+Assessment reference: https://github.com/points/interview-test-server.
+
 ## Highlights & Features
 
 - **Tax Calculation**:
