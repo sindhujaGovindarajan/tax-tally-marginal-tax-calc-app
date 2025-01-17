@@ -2,13 +2,16 @@ import React from "react";
 import "./Layout.css";
 
 type Props = {
+  headerContent?: React.ReactNode;
   children: React.ReactNode;
 };
 
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<Props> = ({ headerContent, children }) => {
   return (
     <div className="layout">
-      <header className="layout-header"></header>
+      {headerContent ? (
+        <header className="layout-header">{headerContent}</header>
+      ) : null}
       <main className="layout-main">{children}</main>
     </div>
   );
