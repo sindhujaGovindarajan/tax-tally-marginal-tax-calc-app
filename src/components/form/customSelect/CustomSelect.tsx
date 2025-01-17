@@ -1,6 +1,7 @@
 import React from "react";
 import { CustomSelectProps } from "../types";
 import { Label } from "../../ui/label/Label";
+import "../common.css";
 
 export const CustomSelect: React.FC<CustomSelectProps> = ({
   refs,
@@ -17,7 +18,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         ref={refs}
         onChange={(e) => onChangeYear(e)}
         defaultValue={defaultValue}
-        className="select"
+        className="form-input"
         data-testid="select"
         disabled={disabled}
       >

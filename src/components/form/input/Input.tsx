@@ -1,6 +1,7 @@
 import React from "react";
 import { InputProps } from "../types";
 import { Label } from "../../ui/label/Label";
+import "../common.css";
 
 export const Input: React.FC<InputProps> = ({
   label,
@@ -23,6 +24,7 @@ export const Input: React.FC<InputProps> = ({
         ref={refs}
         defaultValue={defaultValue}
         disabled={disabled}
+        className="form-input"
       />
     </>
   );

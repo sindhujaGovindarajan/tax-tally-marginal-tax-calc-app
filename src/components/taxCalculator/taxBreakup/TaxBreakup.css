@@ -1,0 +1,23 @@
+
+.float-right {
+  float: right;
+}
+.border-bottom {
+  padding: 5px 0;
+  word-break: break-word;
+}
+.border-bottom:not(:last-child) {
+  border-bottom: 2px solid var(--light-gray-color);
+}
+.breakup-items-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1em 0;
+  margin: 5px 0;
+}
+.breakup-items-container > div,
+.breakup-items-container > div > span {
+  display: flex;
+  justify-content: space-between;
+}

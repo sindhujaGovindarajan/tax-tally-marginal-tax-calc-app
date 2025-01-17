@@ -3,4 +3,10 @@
   --error-color: #d92d20;
   --success-color: #039855;
   --gray-color: #535862;
+  --light-gray-color: rgba(83, 88, 98, 0.2);
+
+  --color-outlines: #e4e2e1;
+  --color-input: #fff;
+  --color-text-input: #32302f;
+  --color-text-placeholder: #615e5c;
 }

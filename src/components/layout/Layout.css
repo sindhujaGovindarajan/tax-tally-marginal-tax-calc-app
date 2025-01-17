@@ -3,12 +3,12 @@
   flex-direction: column;
   height: 100%;
 }
-.layout__header {
+.layout-header {
   background-color: var(--primary-color);
   color: white;
   padding: 1rem;
 }
-.layout__main {
+.layout-main {
   flex: 1;
   padding: 1rem;
 }

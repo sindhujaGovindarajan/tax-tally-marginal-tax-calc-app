@@ -40,7 +40,8 @@ export const calculateTax = (
     }
   }
 
-  const effectiveRate = totalTax / income;
+  const effectiveRate =
+    isNaN(totalTax / income) || income === 0 ? 0 : totalTax / income;
 
   // Cache the computed result
   const result = { totalTax, taxBreakup, effectiveRate };

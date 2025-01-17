@@ -1,7 +1,7 @@
-import { TAX_ASSESMENT_YEAR, DEFAULT_ASSESMENT_YEAR } from "../../constants";
-import { Input } from "../../components/forms/input/Input";
-import { CustomSelect } from "../forms/customSelect/CustomSelect";
-import { TaxInputProps } from "./types";
+import { TAX_ASSESMENT_YEAR, DEFAULT_ASSESMENT_YEAR } from "../../../constants";
+import { Input } from "../../form/input/Input";
+import { CustomSelect } from "../../form/customSelect/CustomSelect";
+import { TaxInputProps } from "../types";
 
 const TaxInputForm = ({
   assesmentYearRef,
@@ -11,22 +11,22 @@ const TaxInputForm = ({
 }: TaxInputProps) => {
   return (
     <fieldset>
-      <legend className="legend">Enter Your Details</legend>
+      <legend className="legend bold">Find Your Marginal Tax Rate</legend>
 
       <CustomSelect
         refs={assesmentYearRef}
-        label="Select assesment year"
+        label="Tax year"
         options={TAX_ASSESMENT_YEAR}
         defaultValue={DEFAULT_ASSESMENT_YEAR}
         onChangeYear={onChangeAssesmentYear}
       />
       <Input
-        label="Please enter your salary ($)"
+        label="Employment income ($)"
         type="number"
         refs={salaryRef}
         onChange={handleSalaryChange}
         autoFocus={true}
-        placeholder="Enter salary"
+        placeholder="$0"
       />
     </fieldset>
   );

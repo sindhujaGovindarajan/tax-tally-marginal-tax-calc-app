@@ -5,14 +5,14 @@ import React, {
   useState,
   createRef,
 } from "react";
-import TaxInputForm from "./TaxInputForm";
+import "./TaxCalculator.css";
+import TaxInputForm from "./taxBreakup/TaxInputForm";
+import { Button } from "../ui/button/Button";
+import { Error } from "../../components/ui/error/Error";
 import { API_ENDPOINT, DEFAULT_ASSESMENT_YEAR } from "../../constants";
 import { fetchTaxBrackets } from "../../services/api";
-import { TaxBreakup } from "../taxCalculator/TaxBreakup";
-import { Error } from "../../components/ui/error/Error";
+import { TaxBreakup } from "./taxBreakup/TaxBreakup";
 import useTaxData from "./context/useTaxData";
-import "./TaxCalculator.css";
-import { Button } from "../ui/button/Button";
 
 const TaxCalculator = () => {
   const salaryRef = createRef() as RefObject<HTMLInputElement>;
@@ -24,7 +24,6 @@ const TaxCalculator = () => {
     setDisabledButton(true);
     try {
       const response = await fetchTaxBrackets(url);
-      // console.log({ response });
       setTaxData({
         taxBracketData: response.data.tax_brackets,
         error: false,
@@ -37,8 +36,6 @@ const TaxCalculator = () => {
 
   const validateSalary = () => {
     let salary = salaryRef.current?.value;
-    const invalidCondition = Number(salary) < 0 || salary === "";
-    console.log({ invalidCondition });
     if (Number(salary) < 0 || salary === "") {
       setDisabledButton(true);
     } else {
@@ -78,8 +75,6 @@ const TaxCalculator = () => {
   useEffect(() => {
     if (taxData.error) {
       setDisabledButton(true);
-    } else {
-      console.log({ taxData });
     }
   }, [taxData]);
 
@@ -89,9 +84,9 @@ const TaxCalculator = () => {
 
   return (
     <>
-      <div className="container" data-testid="tax-calculator">
+      <div className="tax-calculator-container" data-testid="tax-calculator">
         <form onSubmit={handleTaxCalculation}>
-          <h1 className="heading">Tax Calculator</h1>
+          <h1 className="heading">TaxTally - MTR Calculator</h1>
           <Error
             show={taxData?.error}
             errorMessage="We are down right now please comeback later"

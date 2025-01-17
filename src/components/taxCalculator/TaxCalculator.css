@@ -6,3 +6,12 @@
 .error {
   color: var(--error-color);
 }
+.tax-calculator-container {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: 1fr;
+  border-radius: 2.19rem;
+  box-shadow: 0 10px 40px #0000001a;
+  margin-top: 5px;
+  padding: 0 2em 2em;
+}

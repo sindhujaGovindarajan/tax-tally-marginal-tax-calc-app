@@ -1,22 +1,15 @@
-import React, { useState } from "react";
-// TODO
-// import LanguageSwitch from "../../atoms/LanguageSwitch/LanguageSwitch";
-import "./Layout.module.css";
+import React from "react";
+import "./Layout.css";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const Layout: React.FC<Props> = ({ children }) => {
-  const [language, setLanguage] = useState("en");
-
   return (
     <div className="layout">
-      <header className="layout__header">
-        {/* TODO */}
-        {/* <LanguageSwitch language={language} setLanguage={setLanguage} /> */}
-      </header>
-      <main className="layout__main">{children}</main>
+      <header className="layout-header"></header>
+      <main className="layout-main">{children}</main>
     </div>
   );
 };
