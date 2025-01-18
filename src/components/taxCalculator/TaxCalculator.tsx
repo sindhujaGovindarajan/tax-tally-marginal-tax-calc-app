@@ -1,9 +1,11 @@
 import React, {
   useRef,
   useEffect,
-  RefObject,
   useState,
   createRef,
+  lazy,
+  RefObject,
+  Suspense,
 } from "react";
 import "./TaxCalculator.css";
 import TaxInputForm from "./taxBreakup/TaxInputForm";
@@ -11,8 +13,10 @@ import { Button } from "../ui/button/Button";
 import { Error } from "../../components/ui/error/Error";
 import { API_ENDPOINT, DEFAULT_ASSESMENT_YEAR } from "../../constants";
 import { fetchTaxBrackets } from "../../services/api";
-import TaxBreakup from "./taxBreakup/TaxBreakup";
 import useTaxData from "./context/useTaxData";
+
+// Lazily load TaxBreakup for code splitting
+const TaxBreakup = lazy(() => import("./taxBreakup/TaxBreakup"));
 
 const TaxCalculator = () => {
   const salaryRef = createRef() as RefObject<HTMLInputElement>;
@@ -36,11 +40,9 @@ const TaxCalculator = () => {
 
   const validateSalary = () => {
     let salary = salaryRef.current?.value;
-    if (taxData.error || Number(salary) < 0 || salary === "") {
-      setDisabledButton(true);
-    } else {
-      setDisabledButton(false);
-    }
+    setDisabledButton(
+      taxData.error || Number(salary) <= 0 || salary?.trim() === ""
+    );
   };
 
   const onChangeAssesmentYear = (
@@ -50,25 +52,28 @@ const TaxCalculator = () => {
     fetchTaxes(`${API_ENDPOINT}tax-year/${year}`);
   };
 
-  const handleTaxCalculation = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleTaxCalculation = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
     let salary = salaryRef.current?.valueAsNumber || 0;
-    let year = assesmentYearRef.current
-      ? assesmentYearRef.current.value
-      : DEFAULT_ASSESMENT_YEAR;
+    let year = assesmentYearRef.current?.value || DEFAULT_ASSESMENT_YEAR;
 
-    {
-      import("../../utils/calculateTaxWithCache").then((module) => {
-        let { totalTax, taxBreakup, effectiveRate } = module.calculateTax(
-          salary,
-          taxData.taxBracketData,
-          year
-        );
-        setTaxData({
-          showTaxBreakup: true,
-          taxCalculationData: { totalTax, taxBreakup, effectiveRate },
-        });
+    try {
+      const { calculateTax } = await import(
+        "../../utils/calculateTaxWithCache"
+      );
+      const { totalTax, taxBreakup, effectiveRate } = calculateTax(
+        salary,
+        taxData.taxBracketData,
+        year
+      );
+      setTaxData({
+        showTaxBreakup: true,
+        taxCalculationData: { totalTax, taxBreakup, effectiveRate },
       });
+    } catch (error) {
+      setTaxData({ error: true });
     }
   };
 
@@ -83,35 +88,35 @@ const TaxCalculator = () => {
   }, []);
 
   return (
-    <>
-      <div className="tax-calculator-container" data-testid="tax-calculator">
-        <form onSubmit={handleTaxCalculation}>
-          <h1 className="heading">TaxTally - MTR Calculator</h1>
-          <Error
-            show={taxData?.error}
-            errorMessage="Something went wrong. Please try later."
-          />
-          <TaxInputForm
-            assesmentYearRef={
-              assesmentYearRef as React.RefObject<HTMLSelectElement>
-            }
-            onChangeAssesmentYear={onChangeAssesmentYear}
-            salaryRef={salaryRef}
-            handleSalaryChange={validateSalary}
-          />
-          <Button disabled={disabledButton} type="submit">
-            Calculate
-          </Button>
+    <div className="tax-calculator-container" data-testid="tax-calculator">
+      <form onSubmit={handleTaxCalculation}>
+        <h1 className="heading">TaxTally - MTR Calculator</h1>
+        <Error
+          show={taxData?.error}
+          errorMessage="Something went wrong. Please try later."
+        />
+        <TaxInputForm
+          assesmentYearRef={
+            assesmentYearRef as React.RefObject<HTMLSelectElement>
+          }
+          onChangeAssesmentYear={onChangeAssesmentYear}
+          salaryRef={salaryRef}
+          handleSalaryChange={validateSalary}
+        />
+        <Button disabled={disabledButton} type="submit">
+          Calculate
+        </Button>
 
+        <Suspense fallback={<div>Loading tax breakup details...</div>}>
           <TaxBreakup
             totalTax={taxData.taxCalculationData.totalTax}
             taxBreakup={taxData.taxCalculationData.taxBreakup}
             effectiveRate={taxData.taxCalculationData.effectiveRate}
             showTaxBreakup={taxData.showTaxBreakup}
           />
-        </form>
-      </div>
-    </>
+        </Suspense>
+      </form>
+    </div>
   );
 };
-export default TaxCalculator;
+export default React.memo(TaxCalculator);
