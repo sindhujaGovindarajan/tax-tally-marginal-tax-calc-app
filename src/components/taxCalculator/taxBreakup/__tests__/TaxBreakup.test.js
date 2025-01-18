@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { TaxBreakup } from "../TaxBreakup";
+import TaxBreakup from "../TaxBreakup";
 import { formatter } from "../../../../utils/formatter";
 
 const totalTax = 15800;

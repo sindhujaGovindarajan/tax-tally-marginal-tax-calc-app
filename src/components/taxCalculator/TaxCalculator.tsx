@@ -11,7 +11,7 @@ import { Button } from "../ui/button/Button";
 import { Error } from "../../components/ui/error/Error";
 import { API_ENDPOINT, DEFAULT_ASSESMENT_YEAR } from "../../constants";
 import { fetchTaxBrackets } from "../../services/api";
-import { TaxBreakup } from "./taxBreakup/TaxBreakup";
+import TaxBreakup from "./taxBreakup/TaxBreakup";
 import useTaxData from "./context/useTaxData";
 
 const TaxCalculator = () => {
@@ -36,7 +36,7 @@ const TaxCalculator = () => {
 
   const validateSalary = () => {
     let salary = salaryRef.current?.value;
-    if (Number(salary) < 0 || salary === "") {
+    if (taxData.error || Number(salary) < 0 || salary === "") {
       setDisabledButton(true);
     } else {
       setDisabledButton(false);
@@ -76,7 +76,7 @@ const TaxCalculator = () => {
     if (taxData.error) {
       setDisabledButton(true);
     }
-  }, [taxData]);
+  }, [taxData.error]);
 
   useEffect(() => {
     fetchTaxes(API_ENDPOINT);

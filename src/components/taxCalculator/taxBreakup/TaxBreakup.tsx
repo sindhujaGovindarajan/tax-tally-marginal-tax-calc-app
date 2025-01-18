@@ -4,7 +4,7 @@ import React, { memo } from "react";
 import "./TaxBreakup.css";
 import { formatter } from "../../../utils/formatter";
 
-export const TaxBreakup = memo(
+const TaxBreakup = memo(
   ({
     totalTax,
     effectiveRate,
@@ -84,3 +84,4 @@ export const TaxBreakup = memo(
     );
   }
 );
+export default TaxBreakup;
